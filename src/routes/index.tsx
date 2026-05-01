@@ -25,29 +25,32 @@ function Index() {
 
       {/* HERO */}
       <section
-        className="relative min-h-screen flex items-center justify-center pt-20 grain"
+        className="relative min-h-[100svh] flex items-center justify-center pt-24 pb-16 grain"
         style={{
           backgroundImage: `url(${heroBg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="relative z-10 text-center px-6 max-w-6xl">
-          <div className="sticker text-sm md:text-base mb-6">DISTRITO PIRIPIRI • NOVEMBRO 2026</div>
-          <h1 className="text-[18vw] md:text-[14rem] leading-none font-display tracking-tighter text-shadow-stamp">
+        <div className="absolute inset-0 bg-sun/40 md:bg-sun/20" />
+        <div className="relative z-10 text-center px-4 sm:px-6 max-w-6xl w-full">
+          <div className="sticker text-xs sm:text-sm md:text-base mb-5 sm:mb-6">DISTRITO PIRIPIRI • NOVEMBRO 2026</div>
+          <h1 className="text-[22vw] sm:text-[18vw] md:text-[14rem] leading-[0.85] font-display tracking-tighter text-shadow-stamp break-words">
             TOGETHER
           </h1>
-          <div className="sticker text-xl md:text-3xl mt-[-1rem] md:mt-[-2rem]">
+          <div className="sticker text-base sm:text-xl md:text-3xl mt-2 md:mt-[-1rem]">
             FEEL THE MISSION • NORDESTE
           </div>
-          <p className="mt-10 text-lg md:text-2xl max-w-2xl mx-auto font-medium">
+          <p className="mt-8 sm:mt-10 text-base sm:text-lg md:text-2xl max-w-2xl mx-auto font-medium px-2">
             4 dias. 96 horas. Mais de 11 mil jovens missionários.
             <br />
             <strong>Vem servir e ser transformado.</strong>
           </p>
-          <div className="mt-10 flex flex-wrap gap-4 justify-center">
-            <a href="#inscricao" className="btn-stamp px-8 py-4 text-xl">QUERO IR DE PIRIPIRI</a>
-            <a href="#sobre" className="px-8 py-4 text-xl border-2 border-ink bg-cream font-display hover:bg-ocean hover:text-cream transition">
+          <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center items-center">
+            <a href="#inscricao" className="btn-stamp px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-xl w-full sm:w-auto text-center">
+              QUERO IR DE PIRIPIRI
+            </a>
+            <a href="#sobre" className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-xl border-2 border-ink bg-cream font-display hover:bg-ocean hover:text-cream transition w-full sm:w-auto text-center">
               SAIBA MAIS
             </a>
           </div>
@@ -116,44 +119,70 @@ function Index() {
       </section>
 
       {/* VALORES */}
-      <section id="valores" className="py-24 px-6 bg-sun grain">
+      <section id="valores" className="py-20 md:py-24 px-4 sm:px-6 bg-sun grain">
         <div className="max-w-6xl mx-auto relative z-10">
           <div className="sticker mb-6">INVESTIMENTO MISSIONÁRIO</div>
-          <h2 className="text-5xl md:text-7xl mb-12">VALORES SIMBÓLICOS.<br />IMPACTO REAL.</h2>
+          <h2 className="text-4xl sm:text-5xl md:text-7xl mb-10 md:mb-12">VALORES SIMBÓLICOS.<br />IMPACTO REAL.</h2>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            <div className="stamp-card p-8">
+          <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+            <div className="stamp-card p-6 sm:p-8">
               <div className="font-display text-sm tracking-widest text-ocean">INSCRIÇÃO</div>
-              <div className="font-display text-6xl mt-2">R$ 281<span className="text-3xl">,90</span></div>
+              <div className="font-display text-5xl sm:text-6xl mt-2">R$ 281<span className="text-2xl sm:text-3xl">,90</span></div>
               <p className="mt-4 text-sm">
                 Individual, paga pelo <strong>app Together</strong>. Cartão em até <strong>5x sem juros</strong>.
                 Diretor jovem pode comprar vouchers em lote.
               </p>
             </div>
-            <div className="stamp-card p-8">
+            <div className="stamp-card p-6 sm:p-8">
               <div className="font-display text-sm tracking-widest text-ocean">ALIMENTAÇÃO</div>
-              <div className="font-display text-6xl mt-2">R$ 120<span className="text-3xl">,00</span></div>
+              <div className="font-display text-5xl sm:text-6xl mt-2">R$ 120<span className="text-2xl sm:text-3xl">,00</span></div>
               <p className="mt-4 text-sm">
                 4 dias de alimentação completa. Pago <strong>junto com a inscrição no app</strong>.
                 Custo real seria ~R$ 400.
               </p>
             </div>
-            <div className="stamp-card p-8 relative">
-              <span className="sticker absolute -top-4 -right-4 text-xs">PIRIPIRI</span>
-              <div className="font-display text-sm tracking-widest text-ocean">TRASLADO (ÔNIBUS)</div>
-              <div className="font-display text-6xl mt-2">R$ 50<span className="text-3xl">,00</span></div>
+            <div className="stamp-card p-6 sm:p-8 relative">
+              <span className="sticker absolute -top-4 -right-2 sm:-right-4 text-xs">PIRIPIRI ↔ ARENA</span>
+              <div className="font-display text-sm tracking-widest text-ocean">ÔNIBUS DO DISTRITO</div>
+              <div className="font-display text-5xl sm:text-6xl mt-2">R$ 50<span className="text-2xl sm:text-3xl">,00</span></div>
               <p className="mt-4 text-sm">
-                Ônibus exclusivo do Distrito Piripiri. Custo real ~R$ 109.
-                Parcelamento organizado pelo distrito.
+                Ônibus exclusivo <strong>Piripiri → Arena Pernambuco → Piripiri</strong>.
+                Ida e volta para o local oficial do evento. Custo real ~R$ 109. Parcelamento organizado pelo distrito.
               </p>
             </div>
           </div>
 
-          <div className="mt-10 stamp-card p-6 bg-ocean text-cream border-ink">
-            <p className="text-lg">
-              💡 <strong>Como funciona:</strong> a inscrição e alimentação são pagas no
-              <strong> app Together</strong> (cartão, 5x sem juros). O <strong>ônibus do Distrito Piripiri</strong> é organizado
-              separadamente — preencha o formulário abaixo para garantir sua vaga.
+          {/* Diferenciação dos dois traslados */}
+          <div className="mt-10 grid md:grid-cols-2 gap-6">
+            <div className="stamp-card p-6 bg-cream">
+              <div className="sticker text-xs mb-3">TRASLADO 1 • DISTRITO</div>
+              <h3 className="text-2xl sm:text-3xl mb-2">PIRIPIRI ↔ ARENA PERNAMBUCO</h3>
+              <p className="text-sm">
+                É o <strong>ônibus que sai de Piripiri</strong> levando a galera até a <strong>Arena Pernambuco</strong>
+                (sede oficial do evento) e traz todo mundo de volta no fim. <br />
+                💰 <strong>R$ 50</strong> — organizado pelo Distrito Piripiri (formulário abaixo).
+              </p>
+            </div>
+            <div className="stamp-card p-6 bg-ocean text-cream border-ink">
+              <div className="sticker text-xs mb-3 bg-sun text-ink">TRASLADO 2 • EVENTO</div>
+              <h3 className="text-2xl sm:text-3xl mb-2">ARENA → POLOS DE MISSÃO</h3>
+              <p className="text-sm mb-3">
+                Durante o evento, a organização Together leva os voluntários da Arena até os
+                <strong> 8 polos de missão</strong>. <strong>Já incluso</strong> na inscrição do app — você não paga à parte.
+              </p>
+              <div className="flex flex-wrap gap-2 text-xs font-display">
+                {["RECIFE","FERNANDO DE NORONHA","CARUARU","MACEIÓ","JOÃO PESSOA","NATAL","FORTALEZA","TERESINA"].map(p => (
+                  <span key={p} className="bg-sun text-ink px-2 py-1 border border-ink">{p}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-8 stamp-card p-5 sm:p-6 bg-ink text-cream border-sun">
+            <p className="text-sm sm:text-base">
+              💡 <strong>Resumo:</strong> Inscrição + alimentação = pagas no <strong>app Together</strong>.
+              Traslado aos polos = <strong>já incluso</strong>. Ônibus Piripiri ↔ Arena Pernambuco =
+              <strong> organizado pelo distrito</strong>, garanta sua vaga no formulário abaixo.
             </p>
           </div>
         </div>
