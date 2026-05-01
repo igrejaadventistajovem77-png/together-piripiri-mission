@@ -42,9 +42,11 @@ function Index() {
             FEEL THE MISSION • NORDESTE
           </div>
           <p className="mt-8 sm:mt-10 text-base sm:text-lg md:text-2xl max-w-2xl mx-auto font-medium px-2">
-            4 dias. 96 horas. Mais de 11 mil jovens missionários.
-            <br />
-            <strong>Vem servir e ser transformado.</strong>
+            <span className="inline-block bg-ink text-cream px-4 py-2 sm:px-5 sm:py-3 border-2 border-ink shadow-[4px_4px_0_var(--ocean)]">
+              4 dias. 96 horas. Mais de 11 mil jovens missionários.
+              <br />
+              <strong className="text-sun">Vem servir e ser transformado.</strong>
+            </span>
           </p>
           <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center items-center">
             <a href="#inscricao" className="btn-stamp px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-xl w-full sm:w-auto text-center">
