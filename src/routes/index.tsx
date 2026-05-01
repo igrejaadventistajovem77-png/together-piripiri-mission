@@ -142,33 +142,37 @@ function Index() {
               </p>
             </div>
             <div className="stamp-card p-6 sm:p-8 relative">
-              <span className="sticker absolute -top-4 -right-2 sm:-right-4 text-xs">PIRIPIRI ↔ ARENA</span>
-              <div className="font-display text-sm tracking-widest text-ocean">ÔNIBUS DO DISTRITO</div>
+              <span className="sticker absolute -top-4 -right-2 sm:-right-4 text-xs">ARENA ↔ POLOS</span>
+              <div className="font-display text-sm tracking-widest text-ocean">TRASLADO DO EVENTO</div>
               <div className="font-display text-5xl sm:text-6xl mt-2">R$ 50<span className="text-2xl sm:text-3xl">,00</span></div>
               <p className="mt-4 text-sm">
-                Ônibus exclusivo <strong>Piripiri → Arena Pernambuco → Piripiri</strong>.
-                Ida e volta para o local oficial do evento. Custo real ~R$ 109. Parcelamento organizado pelo distrito.
+                Ônibus oficial do evento que leva da <strong>Arena Pernambuco</strong> até os
+                <strong> polos de missão</strong> (ida e volta). Pago à organização Together.
               </p>
             </div>
           </div>
 
           {/* Diferenciação dos dois traslados */}
           <div className="mt-10 grid md:grid-cols-2 gap-6">
-            <div className="stamp-card p-6 bg-cream">
-              <div className="sticker text-xs mb-3">TRASLADO 1 • DISTRITO</div>
+            <div className="stamp-card p-6 bg-cream relative">
+              <div className="sticker text-xs mb-3">ÔNIBUS DO DISTRITO</div>
               <h3 className="text-2xl sm:text-3xl mb-2">PIRIPIRI ↔ ARENA PERNAMBUCO</h3>
-              <p className="text-sm">
-                É o <strong>ônibus que sai de Piripiri</strong> levando a galera até a <strong>Arena Pernambuco</strong>
-                (sede oficial do evento) e traz todo mundo de volta no fim. <br />
-                💰 <strong>R$ 50</strong> — organizado pelo Distrito Piripiri (formulário abaixo).
+              <p className="text-sm mb-3">
+                Ônibus que sai de <strong>Piripiri</strong> levando a galera até a <strong>Arena Pernambuco</strong>
+                (sede oficial do evento) e retorna no fim. Organizado pelo Distrito Piripiri.
               </p>
+              <div className="flex items-baseline gap-2">
+                <span className="font-display text-3xl">R$ a definir</span>
+                <span className="text-xs text-ink/60">• valor a confirmar pela coordenação</span>
+              </div>
+              <p className="text-xs mt-2">👉 Garanta sua vaga no formulário abaixo. O valor e parcelamento serão informados em breve.</p>
             </div>
             <div className="stamp-card p-6 bg-ocean text-cream border-ink">
-              <div className="sticker text-xs mb-3 bg-sun text-ink">TRASLADO 2 • EVENTO</div>
+              <div className="sticker text-xs mb-3 bg-sun text-ink">TRASLADO DO EVENTO • R$ 50</div>
               <h3 className="text-2xl sm:text-3xl mb-2">ARENA → POLOS DE MISSÃO</h3>
               <p className="text-sm mb-3">
-                Durante o evento, a organização Together leva os voluntários da Arena até os
-                <strong> 8 polos de missão</strong>. <strong>Já incluso</strong> na inscrição do app — você não paga à parte.
+                Durante o evento, a organização Together leva os voluntários da Arena Pernambuco até os
+                <strong> 8 polos</strong> e traz de volta. Valor único: <strong>R$ 50 (ida e volta)</strong>.
               </p>
               <div className="flex flex-wrap gap-2 text-xs font-display">
                 {["RECIFE","FERNANDO DE NORONHA","CARUARU","MACEIÓ","JOÃO PESSOA","NATAL","FORTALEZA","TERESINA"].map(p => (
@@ -180,9 +184,9 @@ function Index() {
 
           <div className="mt-8 stamp-card p-5 sm:p-6 bg-ink text-cream border-sun">
             <p className="text-sm sm:text-base">
-              💡 <strong>Resumo:</strong> Inscrição + alimentação = pagas no <strong>app Together</strong>.
-              Traslado aos polos = <strong>já incluso</strong>. Ônibus Piripiri ↔ Arena Pernambuco =
-              <strong> organizado pelo distrito</strong>, garanta sua vaga no formulário abaixo.
+              💡 <strong>Resumo dos traslados:</strong> O <strong>ônibus do distrito</strong> (Piripiri ↔ Arena) é organizado
+              pela coordenação local — valor a definir. O <strong>traslado do evento</strong> (Arena ↔ Polos) custa
+              <strong> R$ 50</strong> e é pago à organização Together.
             </p>
           </div>
         </div>
