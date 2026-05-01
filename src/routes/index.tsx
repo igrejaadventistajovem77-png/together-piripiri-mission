@@ -25,29 +25,32 @@ function Index() {
 
       {/* HERO */}
       <section
-        className="relative min-h-screen flex items-center justify-center pt-20 grain"
+        className="relative min-h-[100svh] flex items-center justify-center pt-24 pb-16 grain"
         style={{
           backgroundImage: `url(${heroBg})`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
       >
-        <div className="relative z-10 text-center px-6 max-w-6xl">
-          <div className="sticker text-sm md:text-base mb-6">DISTRITO PIRIPIRI • NOVEMBRO 2026</div>
-          <h1 className="text-[18vw] md:text-[14rem] leading-none font-display tracking-tighter text-shadow-stamp">
+        <div className="absolute inset-0 bg-sun/40 md:bg-sun/20" />
+        <div className="relative z-10 text-center px-4 sm:px-6 max-w-6xl w-full">
+          <div className="sticker text-xs sm:text-sm md:text-base mb-5 sm:mb-6">DISTRITO PIRIPIRI • NOVEMBRO 2026</div>
+          <h1 className="text-[22vw] sm:text-[18vw] md:text-[14rem] leading-[0.85] font-display tracking-tighter text-shadow-stamp break-words">
             TOGETHER
           </h1>
-          <div className="sticker text-xl md:text-3xl mt-[-1rem] md:mt-[-2rem]">
+          <div className="sticker text-base sm:text-xl md:text-3xl mt-2 md:mt-[-1rem]">
             FEEL THE MISSION • NORDESTE
           </div>
-          <p className="mt-10 text-lg md:text-2xl max-w-2xl mx-auto font-medium">
+          <p className="mt-8 sm:mt-10 text-base sm:text-lg md:text-2xl max-w-2xl mx-auto font-medium px-2">
             4 dias. 96 horas. Mais de 11 mil jovens missionários.
             <br />
             <strong>Vem servir e ser transformado.</strong>
           </p>
-          <div className="mt-10 flex flex-wrap gap-4 justify-center">
-            <a href="#inscricao" className="btn-stamp px-8 py-4 text-xl">QUERO IR DE PIRIPIRI</a>
-            <a href="#sobre" className="px-8 py-4 text-xl border-2 border-ink bg-cream font-display hover:bg-ocean hover:text-cream transition">
+          <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center items-center">
+            <a href="#inscricao" className="btn-stamp px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-xl w-full sm:w-auto text-center">
+              QUERO IR DE PIRIPIRI
+            </a>
+            <a href="#sobre" className="px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-xl border-2 border-ink bg-cream font-display hover:bg-ocean hover:text-cream transition w-full sm:w-auto text-center">
               SAIBA MAIS
             </a>
           </div>
