@@ -42,9 +42,11 @@ function Index() {
             FEEL THE MISSION • NORDESTE
           </div>
           <p className="mt-8 sm:mt-10 text-base sm:text-lg md:text-2xl max-w-2xl mx-auto font-medium px-2">
-            4 dias. 96 horas. Mais de 11 mil jovens missionários.
-            <br />
-            <strong>Vem servir e ser transformado.</strong>
+            <span className="inline-block bg-ink text-cream px-4 py-2 sm:px-5 sm:py-3 border-2 border-ink shadow-[4px_4px_0_var(--ocean)]">
+              4 dias. 96 horas. Mais de 11 mil jovens missionários.
+              <br />
+              <strong className="text-sun">Vem servir e ser transformado.</strong>
+            </span>
           </p>
           <div className="mt-8 sm:mt-10 flex flex-col sm:flex-row flex-wrap gap-3 sm:gap-4 justify-center items-center">
             <a href="#inscricao" className="btn-stamp px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-xl w-full sm:w-auto text-center">
@@ -167,26 +169,26 @@ function Index() {
               </div>
               <p className="text-xs mt-2">👉 Garanta sua vaga no formulário abaixo. O valor e parcelamento serão informados em breve.</p>
             </div>
-            <div className="stamp-card p-6 bg-ocean text-cream border-ink">
-              <div className="sticker text-xs mb-3 bg-sun text-ink">TRASLADO DO EVENTO • R$ 50</div>
-              <h3 className="text-2xl sm:text-3xl mb-2">ARENA → POLOS DE MISSÃO</h3>
-              <p className="text-sm mb-3">
+            <div className="stamp-card p-6 bg-ocean border-ink !text-cream">
+              <div className="sticker text-xs mb-3 bg-sun !text-ink">TRASLADO DO EVENTO • R$ 50</div>
+              <h3 className="text-2xl sm:text-3xl mb-2 !text-cream">ARENA → POLOS DE MISSÃO</h3>
+              <p className="text-sm mb-3 !text-cream">
                 Durante o evento, a organização Together leva os voluntários da Arena Pernambuco até os
-                <strong> 8 polos</strong> e traz de volta. Valor único: <strong>R$ 50 (ida e volta)</strong>.
+                <strong className="!text-sun"> 8 polos</strong> e traz de volta. Valor único: <strong className="!text-sun">R$ 50 (ida e volta)</strong>.
               </p>
               <div className="flex flex-wrap gap-2 text-xs font-display">
                 {["RECIFE","FERNANDO DE NORONHA","CARUARU","MACEIÓ","JOÃO PESSOA","NATAL","FORTALEZA","TERESINA"].map(p => (
-                  <span key={p} className="bg-sun text-ink px-2 py-1 border border-ink">{p}</span>
+                  <span key={p} className="bg-sun !text-ink px-2 py-1 border border-ink">{p}</span>
                 ))}
               </div>
             </div>
           </div>
 
-          <div className="mt-8 stamp-card p-5 sm:p-6 bg-ink text-cream border-sun">
-            <p className="text-sm sm:text-base">
-              💡 <strong>Resumo dos traslados:</strong> O <strong>ônibus do distrito</strong> (Piripiri ↔ Arena) é organizado
-              pela coordenação local — valor a definir. O <strong>traslado do evento</strong> (Arena ↔ Polos) custa
-              <strong> R$ 50</strong> e é pago à organização Together.
+          <div className="mt-8 stamp-card p-5 sm:p-6 bg-ink border-sun !text-cream">
+            <p className="text-sm sm:text-base !text-cream">
+              💡 <strong className="!text-sun">Resumo dos traslados:</strong> O <strong className="!text-sun">ônibus do distrito</strong> (Piripiri ↔ Arena) é organizado
+              pela coordenação local — valor a definir. O <strong className="!text-sun">traslado do evento</strong> (Arena ↔ Polos) custa
+              <strong className="!text-sun"> R$ 50</strong> e é pago à organização Together.
             </p>
           </div>
         </div>
