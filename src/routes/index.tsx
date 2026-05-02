@@ -85,7 +85,7 @@ function Index() {
               ["4", "DIAS DE MISSÃO"],
               ["96h", "DE IMERSÃO"],
               ["11k+", "JOVENS"],
-              ["8", "POLOS NO NE"],
+              ["8", "POLOS NO NORDESTE"],
             ].map(([n, l]) => (
               <div key={l} className="text-center border-2 border-sun p-6">
                 <div className="font-display text-5xl md:text-6xl text-sun">{n}</div>
@@ -143,10 +143,19 @@ function Index() {
                 Custo real seria ~R$ 400.
               </p>
             </div>
-            <div className="stamp-card p-6 sm:p-8 relative">
-              <span className="sticker absolute -top-4 -right-2 sm:-right-4 text-xs">ARENA ↔ POLOS</span>
-              <div className="font-display text-sm tracking-widest text-ocean">TRASLADO DO EVENTO</div>
-              <div className="font-display text-5xl sm:text-6xl mt-2">R$ 50<span className="text-2xl sm:text-3xl">,00</span></div>
+            <div className="stamp-card p-6 sm:p-8 relative bg-cream">
+              <span className="sticker absolute -top-4 -right-2 sm:-right-4 text-xs">
+                ARENA ↔ POLOS
+              </span>
+
+              <div className="font-display text-sm tracking-widest text-ocean">
+                TRASLADO DO EVENTO
+              </div>
+
+              <div className="font-display text-5xl sm:text-6xl mt-2">
+                R$ 50<span className="text-2xl sm:text-3xl">,00</span>
+              </div>
+
               <p className="mt-4 text-sm">
                 Ônibus oficial do evento que leva da <strong>Arena Pernambuco</strong> até os
                 <strong> polos de missão</strong> (ida e volta). Pago à organização Together.
@@ -171,26 +180,20 @@ function Index() {
             </div>
             <div className="stamp-card p-6 bg-ocean border-ink !text-cream">
               <div className="sticker text-xs mb-3 bg-sun !text-ink">TRASLADO DO EVENTO • R$ 50</div>
-              <h3 className="text-2xl sm:text-3xl mb-2 !text-cream">ARENA → POLOS DE MISSÃO</h3>
-              <p className="text-sm mb-3 !text-cream">
+              <h3 className="text-2xl sm:text-3xl mb-2 !text-black">ARENA → POLOS DE MISSÃO</h3>
+              <p className="text-sm mb-3 !text-black">
                 Durante o evento, a organização Together leva os voluntários da Arena Pernambuco até os
                 <strong className="!text-sun"> 8 polos</strong> e traz de volta. Valor único: <strong className="!text-sun">R$ 50 (ida e volta)</strong>.
               </p>
               <div className="flex flex-wrap gap-2 text-xs font-display">
-                {["RECIFE","FERNANDO DE NORONHA","CARUARU","MACEIÓ","JOÃO PESSOA","NATAL","FORTALEZA","TERESINA"].map(p => (
+                {["RECIFE", "FERNANDO DE NORONHA", "CARUARU", "MACEIÓ", "JOÃO PESSOA", "NATAL", "FORTALEZA", "TERESINA"].map(p => (
                   <span key={p} className="bg-sun !text-ink px-2 py-1 border border-ink">{p}</span>
                 ))}
               </div>
             </div>
           </div>
 
-          <div className="mt-8 stamp-card p-5 sm:p-6 bg-ink border-sun !text-cream">
-            <p className="text-sm sm:text-base !text-cream">
-              💡 <strong className="!text-sun">Resumo dos traslados:</strong> O <strong className="!text-sun">ônibus do distrito</strong> (Piripiri ↔ Arena) é organizado
-              pela coordenação local — valor a definir. O <strong className="!text-sun">traslado do evento</strong> (Arena ↔ Polos) custa
-              <strong className="!text-sun"> R$ 50</strong> e é pago à organização Together.
-            </p>
-          </div>
+
         </div>
       </section>
 
@@ -220,7 +223,7 @@ function Index() {
               rel="noopener noreferrer"
               className="btn-stamp px-8 py-4 text-lg"
             >
-               APP STORE
+              APP STORE
             </a>
           </div>
         </div>
