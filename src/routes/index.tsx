@@ -1,12 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
 import heroBg from "@/assets/hero-nordeste.jpg";
 import { InscricaoForm } from "@/components/InscricaoForm";
 
-export const Route = createFileRoute("/")({
-  component: Index,
-});
-
-function Index() {
+export default function Index() {
   return (
     <main className="min-h-screen bg-sun text-ink overflow-x-hidden">
       {/* NAV */}
