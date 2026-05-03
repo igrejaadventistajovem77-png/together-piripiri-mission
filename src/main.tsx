@@ -4,6 +4,7 @@ import { RouterProvider, createRouter, createRootRoute, createRoute, Outlet, Lin
 import "./styles.css";
 import Index from "./routes/index";
 import Pagamento from "./routes/pagamento";
+import Admin from "./routes/admin";
 
 const rootRoute = createRootRoute({
   component: () => <Outlet />,
@@ -32,7 +33,13 @@ const pagamentoRoute = createRoute({
   component: Pagamento,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute, pagamentoRoute]);
+const adminRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/admin",
+  component: Admin,
+});
+
+const routeTree = rootRoute.addChildren([indexRoute, pagamentoRoute, adminRoute]);
 
 const router = createRouter({
   routeTree,
