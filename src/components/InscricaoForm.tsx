@@ -143,12 +143,14 @@ export function InscricaoForm() {
           Sua manifestação de interesse foi enviada para o Distrito Piripiri.
           Em breve o diretor jovem entrará em contato com instruções de pagamento e voucher do app.
         </p>
-        <p className="mt-2 text-sm text-foreground/60">
-          Não esqueça: a inscrição oficial é individual e feita pelo app Together.
-        </p>
-        <button onClick={() => setEnviado(false)} className="btn-stamp mt-6 px-6 py-3 text-lg">
-          Nova inscrição
-        </button>
+        <div className="flex flex-col gap-3 mt-8">
+          <Link to="/pagamento" className="btn-stamp px-6 py-4 text-xl bg-ocean text-cream border-ocean">
+            VERIFICAR MEU PAGAMENTO →
+          </Link>
+          <button onClick={() => setEnviado(false)} className="text-sm underline text-ink/60 hover:text-ocean transition">
+            Fazer outra inscrição
+          </button>
+        </div>
       </div>
     );
   }

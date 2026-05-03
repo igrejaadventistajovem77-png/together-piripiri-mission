@@ -1,14 +1,20 @@
+import { useState } from "react";
 import heroBg from "@/assets/hero-nordeste.jpg";
 import { InscricaoForm } from "@/components/InscricaoForm";
 import { Link } from "@tanstack/react-router";
+import { Menu, X } from "lucide-react";
 
 export default function Index() {
+  const [menuAberto, setMenuAberto] = useState(false);
+
   return (
     <main className="min-h-screen bg-sun text-ink overflow-x-hidden">
       {/* NAV */}
       <header className="fixed top-0 inset-x-0 z-50 bg-sun/90 backdrop-blur border-b-2 border-ink">
         <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
           <div className="font-display text-2xl tracking-tight">TOGETHER<span className="text-ocean">.</span>PIRIPIRI</div>
+          
+          {/* Desktop Nav */}
           <nav className="hidden md:flex gap-8 font-display text-lg">
             <a href="#sobre" className="hover:text-ocean transition">SOBRE</a>
             <a href="#valores" className="hover:text-ocean transition">VALORES</a>
@@ -16,8 +22,33 @@ export default function Index() {
             <a href="#inscricao" className="hover:text-ocean transition">INSCRIÇÃO</a>
             <Link to="/pagamento" className="hover:text-ocean transition">PAGAMENTO</Link>
           </nav>
-          <a href="#inscricao" className="btn-stamp px-4 py-2 text-sm md:text-base">INSCREVER-SE</a>
+
+          <div className="flex items-center gap-4">
+            <a href="#inscricao" className="btn-stamp px-4 py-2 text-sm md:text-base hidden sm:block">INSCREVER-SE</a>
+            
+            {/* Mobile Toggle */}
+            <button 
+              onClick={() => setMenuAberto(!menuAberto)}
+              className="md:hidden p-2 border-2 border-ink bg-sun hover:bg-cream transition"
+            >
+              {menuAberto ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Nav Overlay */}
+        {menuAberto && (
+          <div className="md:hidden absolute top-[100%] left-0 w-full bg-sun border-b-2 border-ink shadow-2xl animate-in slide-in-from-top duration-300">
+            <nav className="flex flex-col p-6 gap-4 font-display text-xl">
+              <a href="#sobre" onClick={() => setMenuAberto(false)} className="border-b border-ink/10 pb-2">SOBRE</a>
+              <a href="#valores" onClick={() => setMenuAberto(false)} className="border-b border-ink/10 pb-2">VALORES</a>
+              <a href="#app" onClick={() => setMenuAberto(false)} className="border-b border-ink/10 pb-2">APP</a>
+              <a href="#inscricao" onClick={() => setMenuAberto(false)} className="border-b border-ink/10 pb-2">INSCRIÇÃO</a>
+              <Link to="/pagamento" onClick={() => setMenuAberto(false)} className="border-b border-ink/10 pb-2">PAGAMENTO</Link>
+              <a href="#inscricao" onClick={() => setMenuAberto(false)} className="btn-stamp w-full text-center py-3 mt-2">INSCREVER-SE AGORA</a>
+            </nav>
+          </div>
+        )}
       </header>
 
       {/* HERO */}
@@ -267,8 +298,9 @@ export default function Index() {
             </p>
           </div>
         </div>
-        <div className="max-w-6xl mx-auto mt-10 pt-6 border-t border-cream/20 text-xs text-cream/50 text-center">
-          Página não oficial criada para o Distrito Piripiri • © 2026
+        <div className="max-w-6xl mx-auto mt-10 pt-6 border-t border-cream/20 text-xs text-cream/50 text-center flex flex-col items-center gap-2">
+          <p>Página não oficial criada para o Distrito Piripiri • © 2026</p>
+          <Link to="/admin" className="hover:text-sun transition opacity-20 hover:opacity-100">ÁREA ADMINISTRATIVA</Link>
         </div>
       </footer>
     </main>
