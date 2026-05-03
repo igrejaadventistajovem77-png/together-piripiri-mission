@@ -1,5 +1,6 @@
 import heroBg from "@/assets/hero-nordeste.jpg";
 import { InscricaoForm } from "@/components/InscricaoForm";
+import { Link } from "@tanstack/react-router";
 
 export default function Index() {
   return (
@@ -13,6 +14,7 @@ export default function Index() {
             <a href="#valores" className="hover:text-ocean transition">VALORES</a>
             <a href="#app" className="hover:text-ocean transition">APP</a>
             <a href="#inscricao" className="hover:text-ocean transition">INSCRIÇÃO</a>
+            <Link to="/pagamento" className="hover:text-ocean transition">PAGAMENTO</Link>
           </nav>
           <a href="#inscricao" className="btn-stamp px-4 py-2 text-sm md:text-base">INSCREVER-SE</a>
         </div>
@@ -168,10 +170,13 @@ export default function Index() {
                 (sede oficial do evento) e retorna no fim. Organizado pelo Distrito Piripiri.
               </p>
               <div className="flex items-baseline gap-2">
-                <span className="font-display text-3xl">R$ a definir</span>
-                <span className="text-xs text-ink/60">• valor a confirmar pela coordenação</span>
+                <span className="font-display text-3xl">EM BREVE</span>
+                <span className="text-xs text-ink/60">• valor a confirmar</span>
               </div>
-              <p className="text-xs mt-2">👉 Garanta sua vaga no formulário abaixo. O valor e parcelamento serão informados em breve.</p>
+              <p className="text-xs mt-2 mb-4">👉 Garanta sua vaga no formulário abaixo. Se já se inscreveu, pode realizar o pagamento no link abaixo.</p>
+              <Link to="/pagamento" className="btn-stamp w-full py-3 text-center text-sm inline-block">
+                JÁ ME INSCREVI, QUERO PAGAR →
+              </Link>
             </div>
             <div className="stamp-card p-6 bg-ocean border-ink !text-cream">
               <div className="sticker text-xs mb-3 bg-sun !text-ink">TRASLADO DO EVENTO • R$ 50</div>

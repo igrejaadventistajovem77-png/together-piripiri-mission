@@ -1,27 +1,17 @@
 import { useMemo, useState } from "react";
-
-// 👉 SUBSTITUA pela URL do seu Google Form (use o link "formResponse" do Google Forms)
-// Exemplo: "https://docs.google.com/forms/d/e/SEU_ID/formResponse"
-const GOOGLE_FORM_ACTION = "https://docs.google.com/forms/d/e/COLE_SEU_ID_AQUI/formResponse";
-
-// 👉 Mapeie os IDs (entry.xxxx) dos campos do seu Google Form aqui
-const FIELDS = {
-  nome: "entry.1111111111",
-  cpf: "entry.2222222222",
-  nascimento: "entry.3333333333",
-  idade: "entry.4444444444",
-  igreja: "entry.5555555555",
-  telefone: "entry.6666666666",
-  parcelas: "entry.7777777777",
-  observacoes: "entry.8888888888",
-};
+import { supabase } from "@/lib/supabase";
 
 const IGREJAS = [
-  "IASD Central Piripiri",
-  "IASD São João",
-  "IASD Bairro de Fátima",
-  "IASD Pirajá",
-  "IASD Capim Grosso",
+  "Piripiri sede",
+  "Central Pedro ll",
+  "Areia Branca",
+  "São João",
+  "Prado",
+  "Piracuruca",
+  "Pequis",
+  "Milton Brandão",
+  "Santa Fé",
+  "Jardim - Boa Hora",
   "Outra",
 ];
 
@@ -44,10 +34,25 @@ function formatCPF(v: string) {
     .replace(/(\d{3})(\d{1,2})$/, "$1-$2");
 }
 
+function validarCPF(cpf: string): boolean {
+  cpf = cpf.replace(/\D/g, "");
+  if (cpf.length !== 11 || !!cpf.match(/(\d)\1{10}/)) return false;
+  const cpfs = cpf.split("").map((el) => +el);
+  const rest = (count: number) =>
+    ((cpfs.slice(0, count - 12).reduce((soma, el, i) => soma + el * (count - i), 0) * 10) % 11) % 10;
+  return rest(10) === cpfs[9] && rest(11) === cpfs[10];
+}
+
 function formatTel(v: string) {
   const d = v.replace(/\D/g, "").slice(0, 11);
-  if (d.length <= 10) return d.replace(/(\d{2})(\d{4})(\d{0,4})/, "($1) $2-$3").trim();
-  return d.replace(/(\d{2})(\d{5})(\d{0,4})/, "($1) $2-$3").trim();
+  if (d.length <= 2) return d;
+  if (d.length <= 3) return d.replace(/(\d{2})(\d{1})/, "$1 $2");
+  if (d.length <= 7) return d.replace(/(\d{2})(\d{1})(\d{0,4})/, "$1 $2 $3");
+  return d.replace(/(\d{2})(\d{1})(\d{4})(\d{0,4})/, "$1 $2 $3-$4");
+}
+
+function validarTelefone(tel: string): boolean {
+  return tel.replace(/\D/g, "").length === 11;
 }
 
 export function InscricaoForm() {
@@ -56,36 +61,51 @@ export function InscricaoForm() {
   const [nascimento, setNascimento] = useState("");
   const [igreja, setIgreja] = useState("");
   const [telefone, setTelefone] = useState("");
-  const [parcelas, setParcelas] = useState("5");
   const [obs, setObs] = useState("");
   const [enviado, setEnviado] = useState(false);
   const [carregando, setCarregando] = useState(false);
+  const [erro, setErro] = useState<string | null>(null);
 
   const idade = useMemo(() => calcularIdade(nascimento), [nascimento]);
-
-  const valorOnibus = 50; // investimento simbólico do traslado
-  const valorParcela = useMemo(() => (valorOnibus / Number(parcelas || 1)).toFixed(2), [parcelas]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setCarregando(true);
+    setErro(null);
 
-    const data = new FormData();
-    data.append(FIELDS.nome, nome);
-    data.append(FIELDS.cpf, cpf);
-    data.append(FIELDS.nascimento, nascimento);
-    data.append(FIELDS.idade, String(idade ?? ""));
-    data.append(FIELDS.igreja, igreja);
-    data.append(FIELDS.telefone, telefone);
-    data.append(FIELDS.parcelas, parcelas);
-    data.append(FIELDS.observacoes, obs);
+    if (!validarCPF(cpf)) {
+      setErro("O CPF informado é inválido. Verifique os números.");
+      setCarregando(false);
+      return;
+    }
+
+    if (!validarTelefone(telefone)) {
+      setErro("O telefone informado está incompleto. Use o formato: 86 9 0000-0000.");
+      setCarregando(false);
+      return;
+    }
+
+    const payload = {
+      nome,
+      cpf: cpf.replace(/\D/g, ""),
+      nascimento,
+      idade,
+      igreja,
+      telefone: telefone.replace(/\D/g, ""),
+      observacoes: obs,
+      criado_em: new Date().toISOString(),
+    };
 
     try {
-      // no-cors: o Google não retorna CORS, mas a inscrição é registrada
-      await fetch(GOOGLE_FORM_ACTION, { method: "POST", mode: "no-cors", body: data });
+      const { error } = await supabase
+        .from("inscricoes")
+        .insert([payload]);
+
+      if (error) throw error;
       setEnviado(true);
-    } catch {
-      setEnviado(true); // mesmo em erro de rede o envio normalmente vai
+    } catch (err: any) {
+      console.error("Erro ao enviar inscrição:", err);
+      setErro("Houve um erro ao salvar sua inscrição. Tente novamente mais tarde.");
     } finally {
       setCarregando(false);
     }
@@ -193,28 +213,12 @@ export function InscricaoForm() {
         </div>
       </div>
 
-      <div className="bg-sun border-2 border-ink p-5">
-        <label className="font-display text-xl block mb-3">PARCELAMENTO DO ÔNIBUS (R$ 50,00)</label>
-        <div className="flex flex-wrap gap-2">
-          {["1", "2", "3", "4", "5"].map((n) => (
-            <button
-              type="button"
-              key={n}
-              onClick={() => setParcelas(n)}
-              className={`px-5 py-2 border-2 border-ink font-display text-lg transition ${
-                parcelas === n ? "bg-ink text-sun" : "bg-cream text-ink hover:bg-ocean hover:text-cream"
-              }`}
-            >
-              {n}x
-            </button>
-          ))}
-        </div>
-        <p className="mt-3 text-sm">
-          {parcelas}x de <strong>R$ {valorParcela}</strong> sem juros • valor simbólico do traslado.
-          <br />
-          <span className="text-foreground/70">A alimentação (R$ 120,00) é paga junto à inscrição no app oficial.</span>
+      {erro && (
+        <p className="bg-destructive text-destructive-foreground p-3 border-2 border-ink text-sm">
+          ⚠️ {erro}
         </p>
-      </div>
+      )}
+
 
       <div>
         <label className="font-display text-xl block mb-2">OBSERVAÇÕES</label>

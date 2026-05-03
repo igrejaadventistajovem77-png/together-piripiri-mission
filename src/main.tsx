@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider, createRouter, createRootRoute, createRoute, Outlet, Link } from "@tanstack/react-router";
 import "./styles.css";
 import Index from "./routes/index";
+import Pagamento from "./routes/pagamento";
 
 const rootRoute = createRootRoute({
   component: () => <Outlet />,
@@ -25,7 +26,13 @@ const indexRoute = createRoute({
   component: Index,
 });
 
-const routeTree = rootRoute.addChildren([indexRoute]);
+const pagamentoRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/pagamento",
+  component: Pagamento,
+});
+
+const routeTree = rootRoute.addChildren([indexRoute, pagamentoRoute]);
 
 const router = createRouter({
   routeTree,
