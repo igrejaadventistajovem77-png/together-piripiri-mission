@@ -101,11 +101,20 @@ export function InscricaoForm() {
         .from("inscricoes")
         .insert([payload]);
 
-      if (error) throw error;
-      setEnviado(true);
+      if (error) {
+        if (error.code === "23505") {
+          setErro("Este CPF já está inscrito. Se você já se inscreveu, pode conferir seus dados na tela de pagamento.");
+        } else {
+          throw error;
+        }
+      } else {
+        setEnviado(true);
+      }
     } catch (err: any) {
       console.error("Erro ao enviar inscrição:", err);
-      setErro("Houve um erro ao salvar sua inscrição. Tente novamente mais tarde.");
+      if (!erro) {
+        setErro("Houve um erro ao salvar sua inscrição. Tente novamente mais tarde.");
+      }
     } finally {
       setCarregando(false);
     }
