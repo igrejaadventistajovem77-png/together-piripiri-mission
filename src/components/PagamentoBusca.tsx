@@ -18,6 +18,18 @@ function validarCPF(cpf: string): boolean {
   return rest(10) === cpfs[9] && rest(11) === cpfs[10];
 }
 
+function formatTel(v: string) {
+  const d = v.replace(/\D/g, "").slice(0, 11);
+  if (d.length <= 2) return d;
+  if (d.length <= 3) return d.replace(/(\d{2})(\d{1})/, "$1 $2");
+  if (d.length <= 7) return d.replace(/(\d{2})(\d{1})(\d{0,4})/, "$1 $2 $3");
+  return d.replace(/(\d{2})(\d{1})(\d{4})(\d{0,4})/, "$1 $2 $3-$4");
+}
+
+function validarTelefone(tel: string): boolean {
+  return tel.replace(/\D/g, "").length === 11;
+}
+
 export function PagamentoBusca() {
   const [cpf, setCpf] = useState("");
   const [nascimento, setNascimento] = useState("");
@@ -85,6 +97,12 @@ export function PagamentoBusca() {
 
     if (!validarCPF(editCpf)) {
       setErro("O novo CPF informado é inválido.");
+      setCarregando(false);
+      return;
+    }
+
+    if (!validarTelefone(editTelefone)) {
+      setErro("O telefone informado está incompleto.");
       setCarregando(false);
       return;
     }
@@ -173,7 +191,7 @@ export function PagamentoBusca() {
               <input
                 required
                 value={editTelefone}
-                onChange={(e) => setEditTelefone(e.target.value)}
+                onChange={(e) => setEditTelefone(formatTel(e.target.value))}
                 className="w-full border-2 border-ink p-3 bg-cream focus:ring-4 focus:ring-ocean/40 outline-none"
               />
             </div>

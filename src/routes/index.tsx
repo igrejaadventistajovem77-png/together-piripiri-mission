@@ -98,7 +98,7 @@ export default function Index() {
         <div className="max-w-5xl mx-auto">
           <div className="sticker mb-6">QUEM PODE PARTICIPAR</div>
           <h2 className="text-5xl md:text-6xl mb-10">
-            JOVENS DE <span className="bg-sun px-3">16 A 30 ANOS</span> —<br />E QUEM TIVER MISSÃO NO CORAÇÃO.
+            JOVENS DE <span className="bg-sun px-3">15 A 30 ANOS</span> —<br />E QUEM TIVER MISSÃO NO CORAÇÃO.
           </h2>
           <ul className="space-y-4 text-lg">
             {[

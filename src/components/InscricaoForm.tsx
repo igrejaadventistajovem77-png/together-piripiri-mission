@@ -68,10 +68,24 @@ export function InscricaoForm() {
 
   const idade = useMemo(() => calcularIdade(nascimento), [nascimento]);
 
+  const podeParticipar = useMemo(() => {
+    if (idade !== null && idade >= 15) return true;
+    if (!nascimento) return false;
+    // Verifica se completa 15 anos até 31 de Julho de 2026
+    const dataLimite = new Date("2026-07-31");
+    const nasc = new Date(nascimento);
+    let idadeNaData = dataLimite.getFullYear() - nasc.getFullYear();
+    const m = dataLimite.getMonth() - nasc.getMonth();
+    if (m < 0 || (m === 0 && dataLimite.getDate() < nasc.getDate())) idadeNaData--;
+    return idadeNaData >= 15;
+  }, [idade, nascimento]);
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    if (!podeParticipar) return;
     setCarregando(true);
     setErro(null);
+// ... (resto da função handleSubmit se mantém igual)
 
     if (!validarCPF(cpf)) {
       setErro("O CPF informado é inválido. Verifique os números.");
@@ -183,14 +197,16 @@ export function InscricaoForm() {
         </div>
       </div>
 
-      {idade !== null && idade < 15 && (
+      {nascimento && !podeParticipar && (
         <p className="bg-destructive text-destructive-foreground p-3 border-2 border-ink text-sm">
-          ⚠️ Idade mínima é 15 anos (com responsável). Verifique a data informada.
+          ⚠️ A idade mínima é 15 anos completos (ou completar até Julho de 2026). 
+          Infelizmente você ainda não possui a idade mínima permitida.
         </p>
       )}
-      {idade !== null && idade === 15 && (
+
+      {nascimento && podeParticipar && idade !== null && idade < 18 && (
         <p className="bg-ocean text-cream p-3 border-2 border-ink text-sm">
-          ℹ️ Com 15 anos é necessário acompanhamento de um responsável.
+          ℹ️ <strong>Atenção:</strong> Por ser menor de 18 anos, sua participação exige a autorização e acompanhamento de um responsável legal.
         </p>
       )}
 
@@ -243,7 +259,7 @@ export function InscricaoForm() {
 
       <button
         type="submit"
-        disabled={carregando || (idade !== null && idade < 15)}
+        disabled={carregando || !podeParticipar}
         className="btn-stamp w-full py-5 text-2xl disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {carregando ? "ENVIANDO..." : "QUERO PARTICIPAR →"}
