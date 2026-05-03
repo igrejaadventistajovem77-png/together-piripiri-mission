@@ -267,9 +267,8 @@ export default function Index() {
             </p>
           </div>
         </div>
-        <div className="max-w-6xl mx-auto mt-10 pt-6 border-t border-cream/20 text-xs text-cream/50 text-center flex flex-col items-center gap-2">
-          <p>Página não oficial criada para o Distrito Piripiri • © 2026</p>
-          <Link to="/admin" className="hover:text-sun transition opacity-30 hover:opacity-100">ÁREA ADMINISTRATIVA</Link>
+        <div className="max-w-6xl mx-auto mt-10 pt-6 border-t border-cream/20 text-xs text-cream/50 text-center">
+          Página não oficial criada para o Distrito Piripiri • © 2026
         </div>
       </footer>
     </main>

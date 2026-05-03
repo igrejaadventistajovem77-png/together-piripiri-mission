@@ -28,6 +28,8 @@ export function PagamentoBusca() {
 
   // Estados para edição
   const [editNome, setEditNome] = useState("");
+  const [editCpf, setEditCpf] = useState("");
+  const [editNascimento, setEditNascimento] = useState("");
   const [editIgreja, setEditIgreja] = useState("");
   const [editTelefone, setEditTelefone] = useState("");
   const [editObs, setEditObs] = useState("");
@@ -62,6 +64,8 @@ export function PagamentoBusca() {
         setInscricao(data);
         // Preencher estados de edição
         setEditNome(data.nome);
+        setEditCpf(data.cpf);
+        setEditNascimento(data.nascimento);
         setEditIgreja(data.igreja);
         setEditTelefone(data.telefone);
         setEditObs(data.observacoes || "");
@@ -79,19 +83,34 @@ export function PagamentoBusca() {
     setCarregando(true);
     setErro(null);
 
+    if (!validarCPF(editCpf)) {
+      setErro("O novo CPF informado é inválido.");
+      setCarregando(false);
+      return;
+    }
+
     try {
       const { error } = await supabase
         .from("inscricoes")
         .update({
           nome: editNome,
+          cpf: editCpf.replace(/\D/g, ""),
+          nascimento: editNascimento,
           igreja: editIgreja,
           telefone: editTelefone.replace(/\D/g, ""),
           observacoes: editObs,
         })
         .eq("id", inscricao.id);
 
-      if (error) throw error;
-      setSucesso(true);
+      if (error) {
+        if (error.code === "23505") {
+          setErro("Este novo CPF já está sendo usado por outra pessoa.");
+        } else {
+          throw error;
+        }
+      } else {
+        setSucesso(true);
+      }
     } catch (err) {
       console.error("Erro ao atualizar:", err);
       setErro("Erro ao atualizar seus dados. Tente novamente.");
@@ -104,7 +123,7 @@ export function PagamentoBusca() {
     return (
       <form onSubmit={handleAtualizar} className="stamp-card p-6 md:p-10 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
         <div className="sticker text-2xl mb-4 bg-ocean text-cream">CONFIRME SEUS DADOS</div>
-        <p className="text-sm text-ink/70">Verifique se suas informações estão corretas antes de prosseguir para o pagamento.</p>
+        <p className="text-sm text-ink/70">Verifique se todas as suas informações (incluindo CPF e Nascimento) estão corretas.</p>
         
         <div className="space-y-4">
           <div>
@@ -115,6 +134,28 @@ export function PagamentoBusca() {
               onChange={(e) => setEditNome(e.target.value)}
               className="w-full border-2 border-ink p-3 bg-cream focus:ring-4 focus:ring-ocean/40 outline-none"
             />
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-display mb-1">CPF</label>
+              <input
+                required
+                value={editCpf}
+                onChange={(e) => setEditCpf(formatCPF(e.target.value))}
+                className="w-full border-2 border-ink p-3 bg-cream focus:ring-4 focus:ring-ocean/40 outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-display mb-1">DATA DE NASCIMENTO</label>
+              <input
+                required
+                type="date"
+                value={editNascimento}
+                onChange={(e) => setEditNascimento(e.target.value)}
+                className="w-full border-2 border-ink p-3 bg-cream focus:ring-4 focus:ring-ocean/40 outline-none"
+              />
+            </div>
           </div>
 
           <div className="grid md:grid-cols-2 gap-4">
