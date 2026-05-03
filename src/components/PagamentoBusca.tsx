@@ -24,12 +24,20 @@ export function PagamentoBusca() {
   const [carregando, setCarregando] = useState(false);
   const [inscricao, setInscricao] = useState<any>(null);
   const [erro, setErro] = useState<string | null>(null);
+  const [sucesso, setSucesso] = useState(false);
+
+  // Estados para edição
+  const [editNome, setEditNome] = useState("");
+  const [editIgreja, setEditIgreja] = useState("");
+  const [editTelefone, setEditTelefone] = useState("");
+  const [editObs, setEditObs] = useState("");
 
   async function handleBuscar(e: React.FormEvent) {
     e.preventDefault();
     setCarregando(true);
     setErro(null);
     setInscricao(null);
+    setSucesso(false);
 
     if (!validarCPF(cpf)) {
       setErro("O CPF informado é inválido. Verifique os números.");
@@ -52,6 +60,11 @@ export function PagamentoBusca() {
         setErro("Inscrição não encontrada. Verifique os dados ou inscreva-se primeiro.");
       } else {
         setInscricao(data);
+        // Preencher estados de edição
+        setEditNome(data.nome);
+        setEditIgreja(data.igreja);
+        setEditTelefone(data.telefone);
+        setEditObs(data.observacoes || "");
       }
     } catch (err) {
       console.error("Erro na busca:", err);
@@ -61,34 +74,135 @@ export function PagamentoBusca() {
     }
   }
 
-  if (inscricao) {
+  async function handleAtualizar(e: React.FormEvent) {
+    e.preventDefault();
+    setCarregando(true);
+    setErro(null);
+
+    try {
+      const { error } = await supabase
+        .from("inscricoes")
+        .update({
+          nome: editNome,
+          igreja: editIgreja,
+          telefone: editTelefone.replace(/\D/g, ""),
+          observacoes: editObs,
+        })
+        .eq("id", inscricao.id);
+
+      if (error) throw error;
+      setSucesso(true);
+    } catch (err) {
+      console.error("Erro ao atualizar:", err);
+      setErro("Erro ao atualizar seus dados. Tente novamente.");
+    } finally {
+      setCarregando(false);
+    }
+  }
+
+  if (inscricao && !sucesso) {
     return (
-      <div className="stamp-card p-6 md:p-10 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <div className="sticker text-2xl mb-4 bg-ocean text-cream">INSCRIÇÃO ENCONTRADA</div>
-        <h3 className="text-3xl font-display">Olá, {inscricao.nome.split(" ")[0]}!</h3>
+      <form onSubmit={handleAtualizar} className="stamp-card p-6 md:p-10 space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="sticker text-2xl mb-4 bg-ocean text-cream">CONFIRME SEUS DADOS</div>
+        <p className="text-sm text-ink/70">Verifique se suas informações estão corretas antes de prosseguir para o pagamento.</p>
         
-        <div className="bg-cream border-2 border-ink p-5 space-y-3">
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-display mb-1">NOME COMPLETO</label>
+            <input
+              required
+              value={editNome}
+              onChange={(e) => setEditNome(e.target.value)}
+              className="w-full border-2 border-ink p-3 bg-cream focus:ring-4 focus:ring-ocean/40 outline-none"
+            />
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-display mb-1">IGREJA</label>
+              <input
+                required
+                value={editIgreja}
+                onChange={(e) => setEditIgreja(e.target.value)}
+                className="w-full border-2 border-ink p-3 bg-cream focus:ring-4 focus:ring-ocean/40 outline-none"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-display mb-1">WHATSAPP</label>
+              <input
+                required
+                value={editTelefone}
+                onChange={(e) => setEditTelefone(e.target.value)}
+                className="w-full border-2 border-ink p-3 bg-cream focus:ring-4 focus:ring-ocean/40 outline-none"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-display mb-1">OBSERVAÇÕES (OPCIONAL)</label>
+            <textarea
+              value={editObs}
+              onChange={(e) => setEditObs(e.target.value)}
+              className="w-full border-2 border-ink p-3 bg-cream focus:ring-4 focus:ring-ocean/40 outline-none"
+              rows={2}
+            />
+          </div>
+        </div>
+
+        {erro && <p className="text-destructive text-sm font-bold">⚠️ {erro}</p>}
+
+        <div className="flex flex-col gap-3">
+          <button
+            type="submit"
+            disabled={carregando}
+            className="btn-stamp w-full py-4 text-xl disabled:opacity-50"
+          >
+            {carregando ? "SALVANDO..." : "CONFIRMAR E IR PARA PAGAMENTO →"}
+          </button>
+          <button 
+            type="button"
+            onClick={() => setInscricao(null)} 
+            className="text-sm underline text-ink/60 hover:text-ocean transition"
+          >
+            Não é você? Voltar para a busca
+          </button>
+        </div>
+      </form>
+    );
+  }
+
+  if (sucesso) {
+    return (
+      <div className="stamp-card p-6 md:p-10 space-y-6 animate-in zoom-in duration-300">
+        <div className="sticker text-2xl mb-4 bg-sun text-ink">DADOS CONFIRMADOS!</div>
+        <h3 className="text-3xl font-display">Pronto, {editNome.split(" ")[0]}!</h3>
+        
+        <div className="bg-cream border-2 border-ink p-5 space-y-4">
           <p className="text-lg">
-            Sua inscrição para o ônibus de <strong>Piripiri</strong> está confirmada no sistema.
+            Sua inscrição para o ônibus de <strong>Piripiri</strong> está atualizada e confirmada.
           </p>
           <div className="pt-4 border-t border-ink/10">
-            <h4 className="font-display text-xl mb-2 text-ocean">PAGAMENTO DO ÔNIBUS</h4>
-            <p className="text-sm">
+            <h4 className="font-display text-xl mb-2 text-ocean">PAGAMENTO DO TRASLADO</h4>
+            <p className="text-sm mb-4">
               O valor do traslado Piripiri ↔ Arena Pernambuco está <strong>a definir</strong>.
             </p>
-            {/* Aqui entrará a lógica de cartão/pagamento no futuro */}
-            <div className="mt-6 bg-sun p-4 border-2 border-ink text-center">
-              <p className="font-display text-lg">ÁREA DE PAGAMENTO</p>
-              <p className="text-xs text-ink/60 mt-1">Em breve você poderá pagar seu traslado por aqui via Cartão ou PIX.</p>
+            <div className="bg-sun p-6 border-2 border-ink text-center">
+              <p className="font-display text-2xl">ÁREA DE PAGAMENTO</p>
+              <p className="text-sm text-ink/70 mt-2">
+                O sistema de pagamentos via Cartão e PIX será liberado assim que o valor oficial for confirmado.
+              </p>
+              <div className="mt-4 p-3 bg-ink text-sun text-xs uppercase tracking-widest">
+                EM BREVE • SISTEMA EM MANUTENÇÃO
+              </div>
             </div>
           </div>
         </div>
 
         <button 
-          onClick={() => setInscricao(null)} 
-          className="text-sm underline text-ink/60 hover:text-ocean transition"
+          onClick={() => { setSucesso(false); setInscricao(null); }} 
+          className="btn-stamp w-full py-3"
         >
-          Buscar outro CPF
+          VOLTAR AO INÍCIO
         </button>
       </div>
     );
@@ -97,8 +211,8 @@ export function PagamentoBusca() {
   return (
     <form onSubmit={handleBuscar} className="stamp-card p-6 md:p-10 space-y-5">
       <div className="text-center mb-6">
-        <h3 className="text-3xl font-display">PAGAR MEU ÔNIBUS</h3>
-        <p className="text-sm text-ink/70">Informe seus dados para localizar sua inscrição e realizar o pagamento.</p>
+        <h3 className="text-3xl font-display uppercase tracking-tight">PAGAR MEU ÔNIBUS</h3>
+        <p className="text-sm text-ink/70">Informe seus dados para localizar sua inscrição.</p>
       </div>
 
       <div>
@@ -140,3 +254,4 @@ export function PagamentoBusca() {
     </form>
   );
 }
+
